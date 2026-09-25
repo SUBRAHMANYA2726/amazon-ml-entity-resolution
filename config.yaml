@@ -1,8 +1,11 @@
-# Phase 0 configuration. Dataset-specific settings are intentionally absent
-# until the official challenge files have been inspected and their schema locked.
+# Phase 1 + Phase 2 configuration.
+#
+# Dataset filenames are intentionally absent. Files are discovered under
+# `dataset.root` and classified from their own path and file stem, so the
+# configuration stays valid if the upstream archive is renamed or re-extracted.
 project:
   name: amazon-ml-entity-resolution
-  phase: 0
+  phase: 2
 
 paths:
   data_root: data
@@ -13,6 +16,72 @@ paths:
   test_dir: data/test
   experiments_dir: experiments
   output_dir: output
+
+# Local copy of the supplied challenge archive. This directory is excluded from
+# Git tracking and is never modified by the pipeline.
+dataset:
+  root: dataset
+  # Phase 1 and Phase 2 are train-only. The test split is discovered for a
+  # structural availability check and is never read for analysis or fitting.
+  read_split: train
+  recursive: true
+  extensions: [".tsv", ".csv", ".txt"]
+  ignore_globs:
+    - "**/__MACOSX/**"
+    - "**/.DS_Store"
+    - "**/._*"
+    - "**/Thumbs.db"
+    - "**/*.md"
+  split_keywords:
+    train: train
+    test: test
+  source_keywords: ["source"]
+  ground_truth_keywords: ["ground_truth", "groundtruth", "labels"]
+  delimiter: "\t"
+  encoding: utf-8
+  header_rows: 1
+  chunksize: 250000
+  # Deterministic leading-row sample used for the exploratory pattern battery.
+  sample_rows: 250000
+  # Deterministic linked-pair sample used to surface real variation examples.
+  pair_sample_rows: 20000
+  top_values: 25
+  max_examples: 8
+
+# Conservative, train-derived comparison rules. These build extra
+# representations; they never decide that two records are the same entity.
+# Every rule table below is populated only from patterns observed in the
+# training sources, and every table is safe to extend for later phases.
+normalization:
+  text:
+    unicode_form: NFKC
+    strip_control_characters: true
+    casefold: true
+    collapse_whitespace: true
+    punctuation_to_space: true
+    strip_symbols: true
+    keep_characters: "&'-.#,/"
+    ampersand_to_and: true
+  name:
+    # Trailing corporate-form tokens observed in the training names.
+    general_legal_suffixes: {}
+    # Conservative whole-token expansions observed in the training names.
+    abbreviations: {}
+  address:
+    street_designators: {}
+    unit_markers: {}
+    direction_tokens: {}
+    address_tokens: {}
+  country:
+    # Open set: labels are cleaned but never mapped to a fixed country universe.
+    open_set: true
+    case: lower
+  tokens:
+    char_ngram_sizes: [3, 4]
+    token_sort: false
+    min_token_length: 1
+  diagnostics:
+    over_normalized_length_ratio: 0.4
 
 random_seed: 2026
 
@@ -25,18 +94,18 @@ experiments:
   retain_history: true
   metadata_format: json
 
-# Model selection and hyperparameters are deferred until dataset inspection.
+# Model selection and hyperparameters are deferred until Phase 3.
 models:
   primary: null
   benchmark: null
   options: {}
 
-# Strategies and their field mappings are deferred until dataset inspection.
+# Blocking strategies are deferred until Phase 3.
 blocking:
   strategies: []
   options: {}
 
-# Macro F0.5 is the intended metric; no threshold is selected in Phase 0.
+# Macro F0.5 is the official metric; no threshold is selected before Phase 3.
 evaluation:
   metric: macro_f_beta
   beta: 0.5

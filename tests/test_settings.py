@@ -18,7 +18,7 @@ def test_loads_phase_zero_configuration() -> None:
 
     settings = load_settings(PROJECT_ROOT / "config.yaml")
 
-    assert settings.project.phase == 0
+    assert settings.project.phase in (0, 1, 2)
     assert settings.paths.raw_dir == Path("data/raw")
     assert settings.models.primary is None
     assert settings.blocking.strategies == ()
