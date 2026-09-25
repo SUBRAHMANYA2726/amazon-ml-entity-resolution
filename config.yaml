@@ -1,0 +1,44 @@
+# Phase 0 configuration. Dataset-specific settings are intentionally absent
+# until the official challenge files have been inspected and their schema locked.
+project:
+  name: amazon-ml-entity-resolution
+  phase: 0
+
+paths:
+  data_root: data
+  raw_dir: data/raw
+  processed_dir: data/processed
+  train_dir: data/train
+  validation_dir: data/validation
+  test_dir: data/test
+  experiments_dir: experiments
+  output_dir: output
+
+random_seed: 2026
+
+logging:
+  level: INFO
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+  date_format: "%Y-%m-%dT%H:%M:%S"
+
+experiments:
+  retain_history: true
+  metadata_format: json
+
+# Model selection and hyperparameters are deferred until dataset inspection.
+models:
+  primary: null
+  benchmark: null
+  options: {}
+
+# Strategies and their field mappings are deferred until dataset inspection.
+blocking:
+  strategies: []
+  options: {}
+
+# Macro F0.5 is the intended metric; no threshold is selected in Phase 0.
+evaluation:
+  metric: macro_f_beta
+  beta: 0.5
+  threshold_grid: []
+  validation_unit: entity
