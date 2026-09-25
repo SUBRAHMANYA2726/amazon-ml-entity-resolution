@@ -1,0 +1,5 @@
+# Phase 0 runtime dependency
+PyYAML>=6.0,<7.0
+
+# Phase 0 test dependency
+pytest>=8.0,<9.0

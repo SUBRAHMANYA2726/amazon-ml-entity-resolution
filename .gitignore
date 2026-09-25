@@ -1,0 +1,45 @@
+# Python build and test artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.egg-info/
+# Virtual environments and local tooling
+.venv/
+# Notebook checkpoints
+.ipynb_checkpoints/
+# Challenge data and generated artifacts stay local.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/train/*
+!data/train/.gitkeep
+data/validation/*
+!data/validation/.gitkeep
+data/test/*
+!data/test/.gitkeep
+experiments/*
+!experiments/README.md
+output/*
+!output/README.md
+
+# Future model and package artifacts
+*.joblib
+*.pkl
+*.pickle
+*.onnx
+*.parquet
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+/dataset/*
+!/dataset/.gitkeep
