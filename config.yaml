@@ -1,11 +1,11 @@
-# Phase 1 + Phase 2 configuration.
+# Phase 3 configuration: Multi-Strategy Blocking and Candidate Generation.
 #
 # Dataset filenames are intentionally absent. Files are discovered under
 # `dataset.root` and classified from their own path and file stem, so the
 # configuration stays valid if the upstream archive is renamed or re-extracted.
 project:
   name: amazon-ml-entity-resolution
-  phase: 2
+  phase: 3
 
 paths:
   data_root: data
@@ -100,10 +100,42 @@ models:
   benchmark: null
   options: {}
 
-# Blocking strategies are deferred until Phase 3.
+# Phase 3 Multi-Strategy Candidate Blocking Configuration
 blocking:
-  strategies: []
-  options: {}
+  strategies:
+    - exact
+    - name_token
+    - address_token
+    - char_ngram
+    - tfidf
+  options:
+    exact:
+      enabled: true
+      max_block_size: 5000
+    name_token:
+      enabled: true
+      min_token_length: 3
+      max_token_frequency: 10000
+      max_candidates_per_query: 50
+    address_token:
+      enabled: true
+      max_block_size: 5000
+      max_candidates_per_query: 50
+    char_ngram:
+      enabled: true
+      ngram_size: 3
+      min_length: 3
+      top_k: 20
+      min_overlap: 0.35
+    tfidf:
+      enabled: true
+      top_k_name: 10
+      top_k_address: 5
+      min_similarity: 0.15
+      batch_size: 2000
+    candidate_limits:
+      max_candidates_per_anchor: 100
+      partition_by_country: true
 
 # Macro F0.5 is the official metric; no threshold is selected before Phase 3.
 evaluation:

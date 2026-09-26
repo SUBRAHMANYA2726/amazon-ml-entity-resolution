@@ -13,15 +13,15 @@ from business_entity_resolution.exceptions import ConfigurationError
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_loads_phase_zero_configuration() -> None:
+def test_loads_project_configuration() -> None:
     """The committed configuration remains schema-agnostic and relative."""
 
     settings = load_settings(PROJECT_ROOT / "config.yaml")
 
-    assert settings.project.phase in (0, 1, 2)
+    assert settings.project.phase in (0, 1, 2, 3)
     assert settings.paths.raw_dir == Path("data/raw")
     assert settings.models.primary is None
-    assert settings.blocking.strategies == ()
+    assert isinstance(settings.blocking.strategies, tuple)
     assert settings.evaluation.threshold_grid == ()
     assert all(
         not getattr(settings.paths, field.name).is_absolute()
