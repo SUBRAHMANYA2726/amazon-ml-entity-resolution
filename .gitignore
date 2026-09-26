@@ -44,3 +44,4 @@ Thumbs.db
 /dataset/*
 !/dataset/.gitkeep
 catboost_info/
+datatest/student_resource/dataset/
