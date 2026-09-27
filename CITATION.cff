@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Bhat"
+    given-names: "Subrahmanya Manjunatha"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "Amazon ML Challenge 2026 — Business Entity Resolution"
+version: "1.0.0"
+date-released: "2026-09-27"
+url: "https://github.com/SUBRAHMANYA2726/amazon-ml-entity-resolution"
+repository-code: "https://github.com/SUBRAHMANYA2726/amazon-ml-entity-resolution"
+repository-artifact: "https://github.com/SUBRAHMANYA2726/amazon-ml-entity-resolution"
+license: "MIT"
+keywords:
+  - "entity-resolution"
+  - "record-linkage"
+  - "business-entity-matching"
+  - "lightgbm"
+  - "amazon-ml-challenge"
+  - "machine-learning"
+  - "data-matching"
+  - "f0.5"
+type: "software"

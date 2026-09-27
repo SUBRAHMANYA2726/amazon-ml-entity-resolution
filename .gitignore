@@ -8,10 +8,16 @@ __pycache__/
 coverage.xml
 htmlcov/
 *.egg-info/
+
 # Virtual environments and local tooling
 .venv/
+.env
+.env.*
+*.log
+
 # Notebook checkpoints
 .ipynb_checkpoints/
+
 # Challenge data and generated artifacts stay local.
 data/raw/*
 !data/raw/.gitkeep
@@ -28,7 +34,7 @@ experiments/*
 output/*
 !output/README.md
 
-# Future model and package artifacts
+# Model and package artifacts
 *.joblib
 *.pkl
 *.pickle
@@ -40,8 +46,28 @@ output/*
 Thumbs.db
 .idea/
 .vscode/
+*.swp
+*.swo
 
+# Challenge dataset (never commit)
 /dataset/*
 !/dataset/.gitkeep
+
+# CatBoost training artifacts
 catboost_info/
+
+# Phase 11 large artifacts
+output/phase11/work/
+output/phase11/*.csv.gz
+output/phase11/*.tsv
+
+# Temporary and cache files
+*.tmp
+*.temp
+.tmp/
+.temp/
+cache/
+.cache/
+
+# datatest (local testing)
 datatest/student_resource/dataset/
